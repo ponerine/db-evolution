@@ -1,0 +1,13 @@
+[package]
+name = "evolution"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# postgres = { version = "*", features = ["with-chrono"] }
+# chrono = "*"
+postgres = "0.19.4"
+openssl = "0.10.41"
+postgres-openssl = "0.5.0"
