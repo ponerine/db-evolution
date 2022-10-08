@@ -1,0 +1,6 @@
+.project
+/.idea/
+.idea
+/.vscode/
+/target/
+*/*/target/
