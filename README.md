@@ -1,7 +1,8 @@
 # db-evolution
 A db evolution tool in rust. It's for versioning DB changes. It connects to a remote db and run sqls in a given folder. Each sql file will be a changelog and assigned to a checksum once it's finished.
 
-Currently it only support cockroachdb.
+Currently it only supports postgres. But it's strightforward to change to other db. Change
+to other DB client should be good.
 
 ## Evolutions scripts
 Evolution tracks your database evolutions using several evolutions script. These scripts are written in plain old SQL and should be located in the db/evolutions directory of your application.
@@ -32,7 +33,14 @@ For example, the script of this evolution has an error:
 
 ALTER TABLE Userxxx ADD company varchar(255);
  
-All changes are recorded in migtation.evoultions table. The failure reason is also recorded in.
+All changes are recorded in evolutions table. The failure reason is also recorded in.
 
+evolutions table schema:
 
+id bigint(20) INT Primary Key
+hash VARCHAR
+created_at TIMESTAMP NOT NULL
+failure_reason VARCHAR
+content VARCHAR NOT NULL
+status VARCHAR(16) NOT NULL
 

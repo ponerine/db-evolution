@@ -42,7 +42,7 @@ fn main() -> Result<(), Error> {
         hasher.update(&file_contents);
         let file_hash = format!("{:X}", hasher.finalize());
         // check if file has already been run
-        let sql = "SELECT hash FROM migrations WHERE id = $1";
+        let sql = "SELECT hash FROM evolutions WHERE id = $1";
         let row = transaction.query_one(sql, &[&file_name]).unwrap();
         if row.len() == 0 {
             println!("Running SQL file: {}", file_name);
@@ -59,7 +59,7 @@ fn main() -> Result<(), Error> {
                     println!("Failed to run SQL file: {}", file_name);
                 },
             }
-            let sql = "INSERT INTO migrations (id, hash, created_at, failure_reason, content, status) VALUES ($1, $2, $3, $4, $5, $6)";
+            let sql = "INSERT INTO evolutions (id, hash, created_at, failure_reason, content, status) VALUES ($1, $2, $3, $4, $5, $6)";
 
             let reason = &failure_reason;
             transaction.execute(sql, &[&file_name, &file_hash, &Utc::now(), reason, &file_contents, &status]).unwrap();
